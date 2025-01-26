@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import SettingsModal from '@/components/SettingsModal';
 import React from 'react';
 import { useFonts } from 'expo-font';
+import TimerText from '@/components/TimerText';
 
 export default function Index() {
   const { timers } = useSettings()!;
@@ -65,17 +66,27 @@ export default function Index() {
 
   return (
     <>
-      <View style={styles.container}>
-        <View style={styles.logoContainer}>
-          <Image source={require('@/assets/images/logo.svg')} style={styles.logo} />
-        </View>
-        <View style={styles.timerSelectContainer}>
+      <View style={styles.appContainer}>
+        <View style={styles.headerContainer}>
+          <View style={styles.logoContainer}>
+            <Image source={require('@/assets/images/logo.svg')} style={styles.logo} />
+          </View>
           <TimerSelect selectedTimer={selectedTimer} setSelectedTimer={handleChangeTimer} />
         </View>
-        <View style={styles.timerContainer}>
-          <Timer timeleft={timeleft} timeTotal={timers[selectedTimer]} onPress={handleTimerClick} />
+
+        <View style={styles.contentContainer}>
+          <View style={styles.timerContainer}>
+            <Timer timeleft={timeleft} timeTotal={timers[selectedTimer]} onPress={handleTimerClick} />
+            <TimerText>
+              <>
+                {!isActive && timeleft > 0 ? 'Paused' : ''}
+                {!isActive && timeleft === 0 ? 'Restart' : ''}
+              </>
+            </TimerText>
+          </View>
         </View>
-        <View style={styles.settingsContainer}>
+
+        <View>
           <Pressable onPress={() => setShowSettings(prev => !prev)}>
             <Image source={require('@/assets/images/icon-settings.svg')} style={styles.settingsImage} />
           </Pressable>
@@ -87,12 +98,19 @@ export default function Index() {
 }
 
 const styles = StyleSheet.create({
-  container: {
+  appContainer: {
     flex: 1,
     backgroundColor: '#1E213F',
     paddingTop: 32,
     paddingBottom: 48,
     alignItems: 'center',
+  },
+  headerContainer: {
+    gap: 45,
+  },
+  contentContainer: {
+    flex: 1,
+    justifyContent: 'center',
   },
   logo: {
     width: 117,
@@ -100,16 +118,9 @@ const styles = StyleSheet.create({
   },
   logoContainer: {
     alignItems: 'center',
-    marginBottom: 45,
-  },
-  timerSelectContainer: {
-    marginBottom: 48,
   },
   timerContainer: {
-    marginBottom: 80,
-  },
-  settingsContainer: {
-    alignItems: 'center',
+    position: 'relative',
   },
   settingsImage: {
     width: 28,

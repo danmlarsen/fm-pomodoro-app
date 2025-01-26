@@ -17,34 +17,34 @@ export default function Timer({ timeleft, timeTotal, onPress }: { timeleft: numb
   const fill = (timeleft / (timeTotal * 60)) * 100;
 
   return (
-    <View style={styles.clockContainer}>
+    <Pressable style={styles.clockContainer} onPress={onPress}>
       <LinearGradient style={styles.clock} colors={['#0E112A', '#2E325A']}>
-        <Pressable style={styles.clockButton} onPress={onPress}>
-          <View style={styles.clockInnerContainer}>
-            <AnimatedCircularProgress size={248} width={8} tintColor={themeColor} fill={fill} rotation={0} lineCap="round" prefill={100}>
-              {() => (
-                <Text
-                  style={[
-                    styles.text,
-                    GlobalFontStyles[themeFont],
-                    themeFont === 'sans' && { letterSpacing: -4 },
-                    themeFont === 'mono' && { letterSpacing: -10 },
-                  ]}
-                >
-                  {formatTime(timeleft)}
-                </Text>
-              )}
-            </AnimatedCircularProgress>
-          </View>
-        </Pressable>
+        <View style={styles.clockInnerContainer}>
+          <AnimatedCircularProgress size={248} width={8} tintColor={themeColor} fill={fill} rotation={0} lineCap="round" prefill={100}>
+            {() => (
+              <Text
+                style={[
+                  styles.text,
+                  GlobalFontStyles[themeFont],
+                  themeFont === 'sans' && { letterSpacing: -4 },
+                  themeFont === 'mono' && { letterSpacing: -10 },
+                ]}
+              >
+                {formatTime(timeleft)}
+              </Text>
+            )}
+          </AnimatedCircularProgress>
+        </View>
       </LinearGradient>
-    </View>
+    </Pressable>
   );
 }
 
 const styles = StyleSheet.create({
   clockContainer: {
-    alignItems: 'center',
+    width: 300,
+    height: 300,
+    borderRadius: 150,
   },
   clock: {
     width: 300,
@@ -54,16 +54,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     boxShadow: '-50px, -50px 100px 0 #272C5A',
   },
-  clockButton: {
-    width: '100%',
-    height: '100%',
-    padding: 16,
-    borderRadius: 150,
-  },
   clockInnerContainer: {
-    width: '100%',
-    height: '100%',
-    padding: 10,
+    width: 268,
+    height: 268,
     borderRadius: 134,
     backgroundColor: '#161932',
     justifyContent: 'center',
@@ -72,6 +65,5 @@ const styles = StyleSheet.create({
   text: {
     color: '#D7E0FF',
     fontSize: 80,
-    fontWeight: 'bold',
   },
 });

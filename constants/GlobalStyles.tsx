@@ -10,10 +10,12 @@ export const GlobalFontStyles = StyleSheet.create({
   sans: {
     fontFamily: 'KumbhSans',
     fontWeight: 'bold',
+    fontVariant: ['tabular-nums'],
   },
   serif: {
     fontFamily: 'RobotoSlab',
     fontWeight: 'bold',
+    fontVariant: ['tabular-nums'],
   },
   mono: {
     fontFamily: 'SpaceMono',
