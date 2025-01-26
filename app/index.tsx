@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { Image } from 'expo-image';
 import Timer from '@/components/Timer';
 import { type TTimer, useSettings } from '@/context/SettingsContext';
@@ -6,6 +6,7 @@ import TimerSelect from '@/components/TimerSelect';
 import { useEffect, useState } from 'react';
 import SettingsModal from '@/components/SettingsModal';
 import React from 'react';
+import { useFonts } from 'expo-font';
 
 export default function Index() {
   const { timers } = useSettings()!;
@@ -13,11 +14,17 @@ export default function Index() {
   const [selectedTimer, setSelectedTimer] = useState<TTimer>('pomodoro');
   const [timeleft, setTimeleft] = useState(timers[selectedTimer] * 60);
   const [isActive, setIsActive] = useState(false);
-  const [showSettings, setShowSettings] = useState(true);
+  const [showSettings, setShowSettings] = useState(false);
+
+  const [loaded, error] = useFonts({
+    KumbhSans: require('@/assets/fonts/Kumbh_Sans/static/KumbhSans-Bold.ttf'),
+    RobotoSlab: require('@/assets/fonts/Roboto_Slab/static/RobotoSlab-Bold.ttf'),
+    SpaceMono: require('@/assets/fonts/Space_Mono/SpaceMono-Regular.ttf'),
+  });
 
   function handleTimerClick() {
     if (!isActive && timeleft === 0) {
-      setTimeleft(timers[selectedTimer]);
+      setTimeleft(timers[selectedTimer] * 60);
       setIsActive(true);
     } else if (timeleft > 0) {
       setIsActive(prev => !prev);
@@ -66,13 +73,15 @@ export default function Index() {
           <TimerSelect selectedTimer={selectedTimer} setSelectedTimer={handleChangeTimer} />
         </View>
         <View style={styles.timerContainer}>
-          <Timer timeleft={timeleft} onPress={handleTimerClick} />
+          <Timer timeleft={timeleft} timeTotal={timers[selectedTimer]} onPress={handleTimerClick} />
         </View>
         <View style={styles.settingsContainer}>
-          <Image source={require('@/assets/images/icon-settings.svg')} style={styles.settingsImage} />
+          <Pressable onPress={() => setShowSettings(prev => !prev)}>
+            <Image source={require('@/assets/images/icon-settings.svg')} style={styles.settingsImage} />
+          </Pressable>
         </View>
       </View>
-      <SettingsModal isVisible={showSettings} />
+      <SettingsModal isVisible={showSettings} onClose={() => setShowSettings(false)} />
     </>
   );
 }

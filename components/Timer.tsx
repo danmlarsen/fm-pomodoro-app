@@ -1,5 +1,8 @@
+import { GlobalFontStyles, GlobalStyles } from '@/constants/GlobalStyles';
+import { useSettings } from '@/context/SettingsContext';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { AnimatedCircularProgress } from 'react-native-circular-progress';
 
 function formatTime(time: number) {
   const minutes = Math.floor(time / 60);
@@ -8,13 +11,30 @@ function formatTime(time: number) {
   return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 }
 
-export default function Timer({ timeleft, onPress }: { timeleft: number; onPress: () => void }) {
+export default function Timer({ timeleft, timeTotal, onPress }: { timeleft: number; timeTotal: number; onPress: () => void }) {
+  const { themeFont, themeColor } = useSettings()!;
+
+  const fill = (timeleft / (timeTotal * 60)) * 100;
+
   return (
     <View style={styles.clockContainer}>
       <LinearGradient style={styles.clock} colors={['#0E112A', '#2E325A']}>
         <Pressable style={styles.clockButton} onPress={onPress}>
           <View style={styles.clockInnerContainer}>
-            <Text style={styles.text}>{formatTime(timeleft)}</Text>
+            <AnimatedCircularProgress size={248} width={8} tintColor={themeColor} fill={fill} rotation={0} lineCap="round" prefill={100}>
+              {() => (
+                <Text
+                  style={[
+                    styles.text,
+                    GlobalFontStyles[themeFont],
+                    themeFont === 'sans' && { letterSpacing: -4 },
+                    themeFont === 'mono' && { letterSpacing: -10 },
+                  ]}
+                >
+                  {formatTime(timeleft)}
+                </Text>
+              )}
+            </AnimatedCircularProgress>
           </View>
         </Pressable>
       </LinearGradient>

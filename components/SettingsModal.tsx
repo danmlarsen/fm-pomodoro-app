@@ -1,17 +1,18 @@
 import { Modal, StyleSheet, Text, View } from 'react-native';
 import SettingsForm from './SettingsForm';
+import IconButton from './ui/IconButton';
 
-export default function SettingsModal({ isVisible, onClose }: { isVisible: boolean; onClose?: () => void }) {
+export default function SettingsModal({ isVisible, onClose }: { isVisible: boolean; onClose: () => void }) {
   return (
     <Modal animationType="slide" transparent={true} visible={isVisible}>
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
           <View style={styles.settingsHeader}>
             <Text style={styles.settingsHeaderText}>Settings</Text>
-            <Text>X</Text>
+            <IconButton icon="close" size={24} color="#1E213F" style={{ opacity: 0.5 }} onPress={onClose} />
           </View>
           <View style={styles.settingsContent}>
-            <SettingsForm />
+            <SettingsForm onSubmit={onClose} />
           </View>
         </View>
       </View>
@@ -32,9 +33,10 @@ const styles = StyleSheet.create({
   },
   settingsHeader: {
     justifyContent: 'space-between',
+    alignItems: 'center',
     flexDirection: 'row',
     borderBottomWidth: 1,
-    borderBottomColor: 'black',
+    borderBottomColor: '#E3E1E1',
     padding: 24,
   },
   settingsHeaderText: {

@@ -4,7 +4,7 @@ export type TColors = string;
 export type TFonts = 'sans' | 'serif' | 'mono';
 export type TTimer = 'pomodoro' | 'shortBreak' | 'longBreak';
 
-type TSettingsState = {
+export type TSettingsState = {
   timers: {
     pomodoro: number;
     shortBreak: number;
@@ -25,6 +25,7 @@ const initialState: TSettingsState = {
 };
 
 type TSettingsContext = TSettingsState & {
+  setSettingsState(prev: TSettingsState): void;
   setThemeColor(color: TColors): void;
   setThemeFont(fontName: TFonts): void;
   setTimerDuration(timer: TTimer, duration: number): void;
@@ -57,6 +58,7 @@ export function SettingsContextProvider({ children }: { children: React.ReactNod
     <SettingsContext.Provider
       value={{
         ...settingsState,
+        setSettingsState,
         setThemeColor,
         setThemeFont,
         setTimerDuration,

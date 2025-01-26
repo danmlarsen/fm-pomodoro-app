@@ -1,10 +1,10 @@
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 
-export default function SettingsFormTimeinput({ label, value, onChange }: { label: string; value: string; onChange: () => void }) {
+export default function SettingsFormTimeinput({ label, value, onChange }: { label: string; value: string; onChange: (text: string) => void }) {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>{label}</Text>
-      <TextInput style={styles.input} value={value} onChangeText={onChange} />
+      <TextInput style={styles.input} value={value} onChangeText={onChange} inputMode="numeric" />
     </View>
   );
 }
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: 'bold',
     backgroundColor: '#EFF1FA',
-    padding: 16,
+    paddingHorizontal: 16,
     borderRadius: 10,
   },
 });

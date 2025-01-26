@@ -32,6 +32,16 @@
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
         }
+      ],
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "./assets/fonts/Kumbh_Sans/static/KumbhSans-Bold.ttf",
+            "./assets/fonts/Roboto_Slab/static/RobotoSlab-Bold.ttf",
+            "./assets/fonts/Space_Mono/SpaceMono-Bold.ttf"
+          ]
+        }
       ]
     ],
     "experiments": {
