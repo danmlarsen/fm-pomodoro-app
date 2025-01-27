@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Pressable, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { Image } from 'expo-image';
 import Timer from '@/components/Timer';
 import { type TTimer, useSettings } from '@/context/SettingsContext';
@@ -66,7 +66,7 @@ export default function Index() {
 
   return (
     <>
-      <View style={styles.appContainer}>
+      <SafeAreaView style={styles.appContainer}>
         <View style={styles.headerContainer}>
           <View style={styles.logoContainer}>
             <Image source={require('@/assets/images/logo.svg')} style={styles.logo} />
@@ -91,7 +91,7 @@ export default function Index() {
             <Image source={require('@/assets/images/icon-settings.svg')} style={styles.settingsImage} />
           </Pressable>
         </View>
-      </View>
+      </SafeAreaView>
       <SettingsModal isVisible={showSettings} onClose={() => setShowSettings(false)} />
     </>
   );

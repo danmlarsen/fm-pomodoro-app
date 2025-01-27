@@ -1,10 +1,15 @@
 import { SettingsContextProvider } from '@/context/SettingsContext';
 import { Stack } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
+import React from 'react';
 
 export default function RootLayout() {
   return (
-    <SettingsContextProvider>
-      <Stack screenOptions={{ headerShown: false }} />
-    </SettingsContextProvider>
+    <>
+      <StatusBar style="light" />
+      <SettingsContextProvider>
+        <Stack screenOptions={{ headerShown: false }} />
+      </SettingsContextProvider>
+    </>
   );
 }

@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
     bottom: 82,
     left: 0,
     right: 0,
-    // transform: [{ translateX: '-50%' }],
+    transform: [{ translateY: '50%' }],
     justifyContent: 'center',
     alignItems: 'center',
   },

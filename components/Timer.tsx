@@ -17,33 +17,44 @@ export default function Timer({ timeleft, timeTotal, onPress }: { timeleft: numb
   const fill = (timeleft / (timeTotal * 60)) * 100;
 
   return (
-    <Pressable style={styles.clockContainer} onPress={onPress}>
-      <LinearGradient style={styles.clock} colors={['#0E112A', '#2E325A']}>
-        <View style={styles.clockInnerContainer}>
-          <AnimatedCircularProgress size={248} width={8} tintColor={themeColor} fill={fill} rotation={0} lineCap="round" prefill={100}>
-            {() => (
-              <Text
-                style={[
-                  styles.text,
-                  GlobalFontStyles[themeFont],
-                  themeFont === 'sans' && { letterSpacing: -4 },
-                  themeFont === 'mono' && { letterSpacing: -10 },
-                ]}
-              >
-                {formatTime(timeleft)}
-              </Text>
-            )}
-          </AnimatedCircularProgress>
-        </View>
-      </LinearGradient>
+    <Pressable
+      style={({ pressed }) => [styles.clockButton, pressed && { opacity: 0.75 }]}
+      onPress={onPress}
+      android_ripple={{ color: '#272C5A', foreground: true, radius: 150 }}
+    >
+      <View style={styles.clockSecondaryShadow}>
+        <LinearGradient style={styles.clock} colors={['#0E112A', '#2E325A']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}>
+          <View style={styles.clockInnerContainer}>
+            <AnimatedCircularProgress size={248} width={8} tintColor={themeColor} fill={fill} rotation={0} lineCap="round" prefill={100}>
+              {() => (
+                <Text
+                  style={[
+                    styles.text,
+                    GlobalFontStyles[themeFont],
+                    themeFont === 'sans' && { letterSpacing: -4 },
+                    themeFont === 'mono' && { letterSpacing: -10 },
+                  ]}
+                >
+                  {formatTime(timeleft)}
+                </Text>
+              )}
+            </AnimatedCircularProgress>
+          </View>
+        </LinearGradient>
+      </View>
     </Pressable>
   );
 }
 
 const styles = StyleSheet.create({
-  clockContainer: {
+  clockButton: {
     width: 300,
     height: 300,
+    borderRadius: 150,
+    boxShadow: '-50 -50 100 0 #272C5A',
+  },
+  clockSecondaryShadow: {
+    boxShadow: '50 50 100 0 #121530',
     borderRadius: 150,
   },
   clock: {
@@ -52,7 +63,6 @@ const styles = StyleSheet.create({
     borderRadius: 150,
     justifyContent: 'center',
     alignItems: 'center',
-    boxShadow: '-50px, -50px 100px 0 #272C5A',
   },
   clockInnerContainer: {
     width: 268,
