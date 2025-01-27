@@ -1,5 +1,5 @@
 import { Text } from 'react-native';
-import RadioItem from './RadioItem';
+import RadioItem from './ui/RadioItem';
 import RadioGroup from './ui/RadioGroup';
 import { GlobalFontStyles } from '@/constants/GlobalStyles';
 import { TFonts } from '@/context/SettingsContext';

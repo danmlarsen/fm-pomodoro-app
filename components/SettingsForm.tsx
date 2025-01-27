@@ -1,10 +1,7 @@
 import { TSettingsState, useSettings } from '@/context/SettingsContext';
 import { useState } from 'react';
-import { StyleSheet, Text, TextInput, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import SettingsFormTimeinput from './SettingsFormInput';
-import RadioItem from './RadioItem';
-import { GlobalFontStyles, GlobalStyles } from '@/constants/GlobalStyles';
-import { Ionicons } from '@expo/vector-icons';
 import SettingsFormFontRadioGroup from './SettingsFormFontRadioGroup';
 import SettingsFormColorRadioGroup from './SettingsFormColorRadioGroup';
 import Button from './ui/Button';

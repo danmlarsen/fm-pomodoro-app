@@ -1,4 +1,4 @@
-import RadioItem from './RadioItem';
+import RadioItem from './ui/RadioItem';
 import RadioGroup from './ui/RadioGroup';
 import { GlobalStyles } from '@/constants/GlobalStyles';
 import { TColors } from '@/context/SettingsContext';

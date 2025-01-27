@@ -26,6 +26,9 @@ export default function SettingsModal({ isVisible, onClose }: { isVisible: boole
 
 const styles = StyleSheet.create({
   modalContainer: {
+    maxWidth: 500,
+    width: '100%',
+    marginHorizontal: 'auto',
     flex: 1,
     paddingHorizontal: 24,
     paddingTop: 46,

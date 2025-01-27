@@ -8,14 +8,13 @@ export default function SettingsFormTimeinput({ label, value, onChange }: { labe
   return (
     <View style={styles.container}>
       <Text style={[styles.text, GlobalFontStyles[themeFont]]}>{label}</Text>
-      <TextInput style={styles.input} value={value} onChangeText={onChange} inputMode="numeric" />
+      <TextInput style={styles.input} value={value} onChangeText={onChange} inputMode="numeric" returnKeyType={'done'} maxLength={2} />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    height: 40,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -27,6 +26,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   input: {
+    height: 40,
     width: 140,
     fontSize: 14,
     fontWeight: 'bold',
