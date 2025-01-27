@@ -1,10 +1,13 @@
 import { TSettingsState, useSettings } from '@/context/SettingsContext';
 import { useState } from 'react';
-import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import { StyleSheet, Text, TextInput, View } from 'react-native';
 import SettingsFormTimeinput from './SettingsFormInput';
 import RadioItem from './RadioItem';
 import { GlobalFontStyles, GlobalStyles } from '@/constants/GlobalStyles';
 import { Ionicons } from '@expo/vector-icons';
+import SettingsFormFontRadioGroup from './SettingsFormFontRadioGroup';
+import SettingsFormColorRadioGroup from './SettingsFormColorRadioGroup';
+import Button from './ui/Button';
 
 export default function SettingsForm({ onSubmit }: { onSubmit: () => void }) {
   const { timers, themeFont, themeColor, setSettingsState } = useSettings()!;
@@ -43,60 +46,16 @@ export default function SettingsForm({ onSubmit }: { onSubmit: () => void }) {
 
       <View style={styles.formCategoryContainer}>
         <Text style={styles.titleText}>Font</Text>
-        <View style={styles.radioGroup}>
-          <RadioItem
-            onPress={() => setSelectedThemeFont('sans')}
-            selected={selectedThemeFont === 'sans'}
-            style={{ backgroundColor: '#EFF1FA' }}
-            selectedStyle={{ backgroundColor: '#161932' }}
-          >
-            <Text style={[GlobalFontStyles['sans'], selectedThemeFont === 'sans' && { color: 'white' }]}>Aa</Text>
-          </RadioItem>
-          <RadioItem
-            onPress={() => setSelectedThemeFont('serif')}
-            selected={selectedThemeFont === 'serif'}
-            style={{ backgroundColor: '#EFF1FA' }}
-            selectedStyle={{ backgroundColor: '#161932' }}
-          >
-            <Text style={[GlobalFontStyles['serif'], selectedThemeFont === 'serif' && { color: 'white' }]}>Aa</Text>
-          </RadioItem>
-          <RadioItem
-            onPress={() => setSelectedThemeFont('mono')}
-            selected={selectedThemeFont === 'mono'}
-            style={{ backgroundColor: '#EFF1FA' }}
-            selectedStyle={{ backgroundColor: '#161932' }}
-          >
-            <Text style={[GlobalFontStyles['mono'], selectedThemeFont === 'mono' && { color: 'white' }]}>Aa</Text>
-          </RadioItem>
-        </View>
+        <SettingsFormFontRadioGroup selectedThemeFont={selectedThemeFont} setSelectedThemeFont={setSelectedThemeFont} />
       </View>
 
       <View style={[styles.formCategoryContainer, { borderBottomWidth: 0 }]}>
         <Text style={styles.titleText}>Color</Text>
-        <View style={styles.radioGroup}>
-          <RadioItem
-            onPress={() => setSelectedThemeColor(GlobalStyles.themeColor1)}
-            selected={selectedThemeColor === GlobalStyles.themeColor1}
-            style={{ backgroundColor: GlobalStyles.themeColor1 }}
-            selectedContent={<Ionicons name="checkmark" size={20} />}
-          />
-          <RadioItem
-            onPress={() => setSelectedThemeColor(GlobalStyles.themeColor2)}
-            selected={selectedThemeColor === GlobalStyles.themeColor2}
-            style={{ backgroundColor: GlobalStyles.themeColor2 }}
-            selectedContent={<Ionicons name="checkmark" size={20} />}
-          />
-          <RadioItem
-            onPress={() => setSelectedThemeColor(GlobalStyles.themeColor3)}
-            selected={selectedThemeColor === GlobalStyles.themeColor3}
-            style={{ backgroundColor: GlobalStyles.themeColor3 }}
-            selectedContent={<Ionicons name="checkmark" size={20} />}
-          />
-        </View>
+        <SettingsFormColorRadioGroup selectedThemeColor={selectedThemeColor} setSelectedThemeColor={setSelectedThemeColor} />
       </View>
 
-      <View>
-        <Button title="Apply" onPress={handleSubmit} />
+      <View style={styles.submitContainer}>
+        <Button onPress={handleSubmit}>Apply</Button>
       </View>
     </View>
   );
@@ -105,6 +64,7 @@ export default function SettingsForm({ onSubmit }: { onSubmit: () => void }) {
 const styles = StyleSheet.create({
   formContainer: {
     flex: 1,
+    paddingHorizontal: 24,
   },
   formCategoryContainer: {
     borderBottomColor: '#E3E1E1',
@@ -126,5 +86,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     gap: 16,
+  },
+  submitContainer: {
+    position: 'absolute',
+    alignItems: 'center',
+    left: 0,
+    right: 0,
+    bottom: 0,
+    transform: [{ translateY: '50%' }],
   },
 });

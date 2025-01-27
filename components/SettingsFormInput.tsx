@@ -1,9 +1,13 @@
+import { GlobalFontStyles } from '@/constants/GlobalStyles';
+import { useSettings } from '@/context/SettingsContext';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 
 export default function SettingsFormTimeinput({ label, value, onChange }: { label: string; value: string; onChange: (text: string) => void }) {
+  const { themeFont } = useSettings()!;
+
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>{label}</Text>
+      <Text style={[styles.text, GlobalFontStyles[themeFont]]}>{label}</Text>
       <TextInput style={styles.input} value={value} onChangeText={onChange} inputMode="numeric" />
     </View>
   );

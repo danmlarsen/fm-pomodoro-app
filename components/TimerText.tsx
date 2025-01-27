@@ -1,9 +1,13 @@
+import { GlobalFontStyles } from '@/constants/GlobalStyles';
+import { useSettings } from '@/context/SettingsContext';
 import { StyleSheet, Text, View } from 'react-native';
 
 export default function TimerText({ children }: { children: React.ReactNode }) {
+  const { themeFont } = useSettings()!;
+
   return (
     <View style={styles.timerTextContainer} pointerEvents="none">
-      <Text style={styles.timerText}>{children}</Text>
+      <Text style={[styles.timerText, { fontFamily: GlobalFontStyles[themeFont].fontFamily }]}>{children}</Text>
     </View>
   );
 }
