@@ -1,4 +1,4 @@
-import { GlobalFontStyles, GlobalStyles } from '@/constants/GlobalStyles';
+import { GlobalStyles } from '@/constants/GlobalStyles';
 import { useSettings } from '@/context/SettingsContext';
 import { Pressable, StyleSheet, Text } from 'react-native';
 
@@ -7,7 +7,7 @@ export function TimerSelectButton({ children, onPress, isSelected }: { children:
 
   return (
     <Pressable style={[styles.button, isSelected && { backgroundColor: themeColor }]} onPress={onPress}>
-      <Text style={[styles.text, isSelected && { color: '#1E213F', opacity: 1 }, GlobalFontStyles[themeFont]]}>{children}</Text>
+      <Text style={[styles.text, { fontFamily: GlobalStyles.fonts[themeFont] }, isSelected && { color: '#1E213F', opacity: 1 }]}>{children}</Text>
     </Pressable>
   );
 }
@@ -22,7 +22,6 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 12,
     color: '#D7E0FF',
-    fontWeight: 'bold',
     opacity: 0.4,
   },
 });

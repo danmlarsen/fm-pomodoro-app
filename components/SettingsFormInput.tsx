@@ -1,4 +1,4 @@
-import { GlobalFontStyles } from '@/constants/GlobalStyles';
+import { GlobalStyles } from '@/constants/GlobalStyles';
 import { useSettings } from '@/context/SettingsContext';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 
@@ -7,8 +7,15 @@ export default function SettingsFormTimeinput({ label, value, onChange }: { labe
 
   return (
     <View style={styles.container}>
-      <Text style={[styles.text, GlobalFontStyles[themeFont]]}>{label}</Text>
-      <TextInput style={styles.input} value={value} onChangeText={onChange} inputMode="numeric" returnKeyType={'done'} maxLength={2} />
+      <Text style={[styles.text, { fontFamily: GlobalStyles.fonts[themeFont] }]}>{label}</Text>
+      <TextInput
+        style={[styles.input, { fontFamily: GlobalStyles.fonts[themeFont] }]}
+        value={value}
+        onChangeText={onChange}
+        inputMode="numeric"
+        returnKeyType={'done'}
+        maxLength={2}
+      />
     </View>
   );
 }
@@ -23,13 +30,11 @@ const styles = StyleSheet.create({
     color: '#1E213F',
     fontSize: 12,
     opacity: 0.4,
-    fontWeight: 'bold',
   },
   input: {
     height: 40,
     width: 140,
     fontSize: 14,
-    fontWeight: 'bold',
     backgroundColor: '#EFF1FA',
     paddingHorizontal: 16,
     borderRadius: 10,

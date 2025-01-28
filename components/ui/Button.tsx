@@ -1,4 +1,4 @@
-import { GlobalFontStyles, GlobalStyles } from '@/constants/GlobalStyles';
+import { GlobalStyles } from '@/constants/GlobalStyles';
 import { useSettings } from '@/context/SettingsContext';
 import { Pressable, StyleSheet, Text } from 'react-native';
 
@@ -7,7 +7,7 @@ export default function Button({ children, onPress }: { children: string; onPres
 
   return (
     <Pressable style={[styles.button, { backgroundColor: themeColor }]} onPress={onPress}>
-      <Text style={[styles.text, GlobalFontStyles[themeFont]]}>{children}</Text>
+      <Text style={[styles.text, { fontFamily: GlobalStyles.fonts[themeFont] }]}>{children}</Text>
     </Pressable>
   );
 }

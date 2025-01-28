@@ -1,4 +1,4 @@
-import { GlobalFontStyles, GlobalStyles } from '@/constants/GlobalStyles';
+import { GlobalStyles } from '@/constants/GlobalStyles';
 import { useSettings } from '@/context/SettingsContext';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
@@ -30,8 +30,8 @@ export default function Timer({ timeleft, timeTotal, onPress }: { timeleft: numb
                 <Text
                   style={[
                     styles.text,
-                    GlobalFontStyles[themeFont],
-                    themeFont === 'sans' && { letterSpacing: -4 },
+                    { fontFamily: GlobalStyles.fonts[themeFont] },
+                    themeFont === 'sans' && { letterSpacing: -5 },
                     themeFont === 'mono' && { letterSpacing: -10 },
                   ]}
                 >
@@ -75,5 +75,6 @@ const styles = StyleSheet.create({
   text: {
     color: '#D7E0FF',
     fontSize: 80,
+    fontVariant: ['tabular-nums'],
   },
 });

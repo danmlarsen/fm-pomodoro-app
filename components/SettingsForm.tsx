@@ -1,10 +1,12 @@
 import { TSettingsState, useSettings } from '@/context/SettingsContext';
 import { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import SettingsFormTimeinput from './SettingsFormInput';
 import SettingsFormFontRadioGroup from './SettingsFormFontRadioGroup';
 import SettingsFormColorRadioGroup from './SettingsFormColorRadioGroup';
 import Button from './ui/Button';
+import React from 'react';
+import SettingsFormCategoryTitle from './SettingsFormCategoryTitle';
 
 export default function SettingsForm({ onSubmit }: { onSubmit: () => void }) {
   const { timers, themeFont, themeColor, setSettingsState } = useSettings()!;
@@ -31,30 +33,32 @@ export default function SettingsForm({ onSubmit }: { onSubmit: () => void }) {
   }
 
   return (
-    <View style={styles.formContainer}>
-      <View style={styles.formCategoryContainer}>
-        <Text style={styles.titleText}>Time (Minutes)</Text>
-        <View style={styles.inputContainer}>
-          <SettingsFormTimeinput label="pomodoro" value={pomodoro.toString()} onChange={setPomodoro} />
-          <SettingsFormTimeinput label="short break" value={shortBreak.toString()} onChange={setShortBreak} />
-          <SettingsFormTimeinput label="long break" value={longBreak.toString()} onChange={setLongBreak} />
+    <>
+      <ScrollView style={styles.formContainer}>
+        <View style={styles.formCategoryContainer}>
+          <SettingsFormCategoryTitle>Time (Minutes)</SettingsFormCategoryTitle>
+          <View style={styles.inputContainer}>
+            <SettingsFormTimeinput label="pomodoro" value={pomodoro.toString()} onChange={setPomodoro} />
+            <SettingsFormTimeinput label="short break" value={shortBreak.toString()} onChange={setShortBreak} />
+            <SettingsFormTimeinput label="long break" value={longBreak.toString()} onChange={setLongBreak} />
+          </View>
         </View>
-      </View>
 
-      <View style={styles.formCategoryContainer}>
-        <Text style={styles.titleText}>Font</Text>
-        <SettingsFormFontRadioGroup selectedThemeFont={selectedThemeFont} setSelectedThemeFont={setSelectedThemeFont} />
-      </View>
+        <View style={styles.formCategoryContainer}>
+          <SettingsFormCategoryTitle>Font</SettingsFormCategoryTitle>
+          <SettingsFormFontRadioGroup selectedThemeFont={selectedThemeFont} setSelectedThemeFont={setSelectedThemeFont} />
+        </View>
 
-      <View style={[styles.formCategoryContainer, { borderBottomWidth: 0 }]}>
-        <Text style={styles.titleText}>Color</Text>
-        <SettingsFormColorRadioGroup selectedThemeColor={selectedThemeColor} setSelectedThemeColor={setSelectedThemeColor} />
-      </View>
+        <View style={[styles.formCategoryContainer, { borderBottomWidth: 0 }]}>
+          <SettingsFormCategoryTitle>Color</SettingsFormCategoryTitle>
+          <SettingsFormColorRadioGroup selectedThemeColor={selectedThemeColor} setSelectedThemeColor={setSelectedThemeColor} />
+        </View>
+      </ScrollView>
 
       <View style={styles.submitContainer}>
         <Button onPress={handleSubmit}>Apply</Button>
       </View>
-    </View>
+    </>
   );
 }
 
@@ -70,19 +74,6 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     gap: 8,
-  },
-  titleText: {
-    textAlign: 'center',
-    color: '#161932',
-    fontWeight: 'bold',
-    textTransform: 'uppercase',
-    letterSpacing: 4.23,
-    marginBottom: 16,
-  },
-  radioGroup: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    gap: 16,
   },
   submitContainer: {
     position: 'absolute',

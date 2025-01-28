@@ -2,7 +2,7 @@ import { Modal, StyleSheet, Text, View } from 'react-native';
 import SettingsForm from './SettingsForm';
 import IconButton from './ui/IconButton';
 import { useSettings } from '@/context/SettingsContext';
-import { GlobalFontStyles } from '@/constants/GlobalStyles';
+import { GlobalStyles } from '@/constants/GlobalStyles';
 
 export default function SettingsModal({ isVisible, onClose }: { isVisible: boolean; onClose: () => void }) {
   const { themeFont } = useSettings()!;
@@ -12,7 +12,7 @@ export default function SettingsModal({ isVisible, onClose }: { isVisible: boole
       <View style={styles.modalContainer}>
         <View style={styles.modalContent}>
           <View style={styles.settingsHeader}>
-            <Text style={[styles.settingsHeaderText, { fontFamily: GlobalFontStyles[themeFont].fontFamily }]}>Settings</Text>
+            <Text style={[styles.settingsHeaderText, { fontFamily: GlobalStyles.fonts[themeFont] }]}>Settings</Text>
             <IconButton icon="close" size={24} color="#1E213F" style={{ opacity: 0.5 }} onPress={onClose} />
           </View>
           <View style={styles.settingsContent}>
@@ -49,7 +49,6 @@ const styles = StyleSheet.create({
   },
   settingsHeaderText: {
     fontSize: 20,
-    fontWeight: 'bold',
   },
   settingsContent: {
     flex: 1,
