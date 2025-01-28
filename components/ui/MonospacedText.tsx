@@ -13,7 +13,7 @@ export default function MonospacedText({ children }: { children: string }) {
             {char}
           </Text>
         ) : (
-          <Text key={index} style={[styles.text, { fontFamily: GlobalStyles.fonts[themeFont], width: 25 }]}>
+          <Text key={index} style={[styles.text, { fontFamily: GlobalStyles.fonts[themeFont], width: 20 }]}>
             {char}
           </Text>
         )
