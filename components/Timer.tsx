@@ -1,8 +1,8 @@
-import { GlobalStyles } from '@/constants/GlobalStyles';
 import { useSettings } from '@/context/SettingsContext';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
+import MonospacedText from './ui/MonospacedText';
 
 function formatTime(time: number) {
   const minutes = Math.floor(time / 60);
@@ -12,7 +12,7 @@ function formatTime(time: number) {
 }
 
 export default function Timer({ timeleft, timeTotal, onPress }: { timeleft: number; timeTotal: number; onPress: () => void }) {
-  const { themeFont, themeColor } = useSettings()!;
+  const { themeColor } = useSettings()!;
 
   const fill = (timeleft / (timeTotal * 60)) * 100;
 
@@ -26,18 +26,7 @@ export default function Timer({ timeleft, timeTotal, onPress }: { timeleft: numb
         <LinearGradient style={styles.clock} colors={['#0E112A', '#2E325A']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}>
           <View style={styles.clockInnerContainer}>
             <AnimatedCircularProgress size={248} width={8} tintColor={themeColor} fill={fill} rotation={0} lineCap="round" prefill={100}>
-              {() => (
-                <Text
-                  style={[
-                    styles.text,
-                    { fontFamily: GlobalStyles.fonts[themeFont] },
-                    themeFont === 'sans' && { letterSpacing: -5 },
-                    themeFont === 'mono' && { letterSpacing: -10 },
-                  ]}
-                >
-                  {formatTime(timeleft)}
-                </Text>
-              )}
+              {() => <MonospacedText>{formatTime(timeleft)}</MonospacedText>}
             </AnimatedCircularProgress>
           </View>
         </LinearGradient>
@@ -72,9 +61,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  text: {
-    color: '#D7E0FF',
-    fontSize: 80,
-    fontVariant: ['tabular-nums'],
-  },
+  // text: {
+  //   color: '#D7E0FF',
+  //   fontSize: 80,
+  //   fontVariant: ['tabular-nums'],
+  // },
 });
