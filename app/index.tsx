@@ -3,7 +3,7 @@ import { Image } from 'expo-image';
 import Timer from '@/components/Timer';
 import { type TTimer, useSettings } from '@/context/SettingsContext';
 import TimerSelect from '@/components/TimerSelect';
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import SettingsModal from '@/components/SettingsModal';
 import React from 'react';
 import { useFonts } from 'expo-font';

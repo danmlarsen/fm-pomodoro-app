@@ -20,9 +20,9 @@ export default function SettingsForm({ onSubmit }: { onSubmit: () => void }) {
   function handleSubmit() {
     const newSettings: TSettingsState = {
       timers: {
-        pomodoro: +pomodoro,
-        shortBreak: +shortBreak,
-        longBreak: +longBreak,
+        pomodoro: Math.max(Math.trunc(+pomodoro), 1),
+        shortBreak: Math.max(Math.trunc(+shortBreak), 1),
+        longBreak: Math.max(Math.trunc(+longBreak), 1),
       },
       themeFont: selectedThemeFont,
       themeColor: selectedThemeColor,
