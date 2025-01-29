@@ -8,6 +8,7 @@ import SettingsModal from '@/components/SettingsModal';
 import React from 'react';
 import { useFonts } from 'expo-font';
 import TimerText from '@/components/TimerText';
+import { useTimer } from '@/hooks/useTimer';
 
 export default function Index() {
   const { timers } = useSettings()!;
@@ -15,12 +16,7 @@ export default function Index() {
   const [selectedTimer, setSelectedTimer] = useState<TTimer>('pomodoro');
   const [showSettings, setShowSettings] = useState(false);
 
-  const [timeleft, setTimeleft] = useState(timers[selectedTimer] * 60);
-  const [isRunning, setIsRunning] = useState(false);
-
-  const startTimeRef = useRef<number | null>(null);
-  const elapsedTimeSecondsRef = useRef<number>(0);
-  const currentTotaltimeMinutesRef = useRef<number>(timers[selectedTimer]);
+  const { timeleft, isRunning, setIsRunning, resetTimer } = useTimer(timers[selectedTimer]);
 
   const [loaded, error] = useFonts({
     KumbhSans: require('@/assets/fonts/Kumbh_Sans/static/KumbhSans-Bold.ttf'),
@@ -30,52 +26,18 @@ export default function Index() {
 
   function handleTimerClick() {
     if (!isRunning && timeleft === 0) {
-      setTimeleft(timers[selectedTimer] * 60);
-      currentTotaltimeMinutesRef.current = timers[selectedTimer];
-      elapsedTimeSecondsRef.current = 0;
-      // setIsRunning(true);
+      resetTimer(timers[selectedTimer]);
     } else if (timeleft > 0) {
       setIsRunning(prev => !prev);
     }
   }
 
   function handleChangeTimer(newTimer: TTimer) {
-    const newTimeleft = timers[newTimer] * 60;
-    setTimeleft(newTimeleft);
-    setIsRunning(false);
     setSelectedTimer(newTimer);
 
-    startTimeRef.current = null;
-    currentTotaltimeMinutesRef.current = timers[newTimer];
-    elapsedTimeSecondsRef.current = 0;
+    setIsRunning(false);
+    resetTimer(timers[newTimer]);
   }
-
-  useEffect(() => {
-    let interval: NodeJS.Timeout | null = null;
-
-    if (isRunning) {
-      startTimeRef.current = Date.now() - elapsedTimeSecondsRef.current;
-
-      interval = setInterval(() => {
-        if (startTimeRef.current !== null) {
-          const elapsedSeconds = Math.floor((Date.now() - startTimeRef.current) / 1000);
-          const newTimeleft = Math.max(currentTotaltimeMinutesRef.current * 60 - elapsedSeconds, 0);
-          setTimeleft(newTimeleft);
-
-          if (newTimeleft === 0) {
-            setIsRunning(false);
-            if (interval) clearInterval(interval);
-          }
-        }
-      }, 100);
-    } else if (!isRunning && startTimeRef.current !== null) {
-      elapsedTimeSecondsRef.current = Date.now() - startTimeRef.current;
-    }
-
-    return () => {
-      if (interval) clearInterval(interval);
-    };
-  }, [isRunning]);
 
   return (
     <>
@@ -89,7 +51,7 @@ export default function Index() {
 
         <View style={styles.contentContainer}>
           <View style={styles.timerContainer}>
-            <Timer timeleft={timeleft} timeTotal={currentTotaltimeMinutesRef.current} onPress={handleTimerClick} />
+            <Timer timeleft={timeleft} timeTotal={timers[selectedTimer]} onPress={handleTimerClick} />
             <TimerText>
               <>
                 {!isRunning && timeleft > 0 ? 'Pause' : ''}
