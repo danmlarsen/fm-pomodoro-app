@@ -1,4 +1,4 @@
-import { Pressable, SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { Pressable, SafeAreaView, StyleSheet, View } from 'react-native';
 import { Image } from 'expo-image';
 import Timer from '@/components/Timer';
 import { type TTimer, useSettings } from '@/context/SettingsContext';
@@ -13,11 +13,14 @@ export default function Index() {
   const { timers } = useSettings()!;
 
   const [selectedTimer, setSelectedTimer] = useState<TTimer>('pomodoro');
-  const [timeleft, setTimeleft] = useState(timers[selectedTimer] * 60);
-  const [isActive, setIsActive] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
 
-  const currentTotaltime = useRef<number>(timers[selectedTimer]);
+  const [timeleft, setTimeleft] = useState(timers[selectedTimer] * 60);
+  const [isRunning, setIsRunning] = useState(false);
+
+  const startTimeRef = useRef<number | null>(null);
+  const elapsedTimeSecondsRef = useRef<number>(0);
+  const currentTotaltimeMinutesRef = useRef<number>(timers[selectedTimer]);
 
   const [loaded, error] = useFonts({
     KumbhSans: require('@/assets/fonts/Kumbh_Sans/static/KumbhSans-Bold.ttf'),
@@ -26,47 +29,53 @@ export default function Index() {
   });
 
   function handleTimerClick() {
-    if (!isActive && timeleft === 0) {
+    if (!isRunning && timeleft === 0) {
       setTimeleft(timers[selectedTimer] * 60);
-      currentTotaltime.current = timers[selectedTimer];
-      setIsActive(true);
+      currentTotaltimeMinutesRef.current = timers[selectedTimer];
+      elapsedTimeSecondsRef.current = 0;
+      // setIsRunning(true);
     } else if (timeleft > 0) {
-      setIsActive(prev => !prev);
+      setIsRunning(prev => !prev);
     }
   }
 
   function handleChangeTimer(newTimer: TTimer) {
     const newTimeleft = timers[newTimer] * 60;
-    currentTotaltime.current = timers[newTimer];
     setTimeleft(newTimeleft);
-
-    setIsActive(false);
+    setIsRunning(false);
     setSelectedTimer(newTimer);
+
+    startTimeRef.current = null;
+    currentTotaltimeMinutesRef.current = timers[newTimer];
+    elapsedTimeSecondsRef.current = 0;
   }
 
   useEffect(() => {
-    let interval: NodeJS.Timeout | undefined;
+    let interval: NodeJS.Timeout | null = null;
 
-    if (isActive && !interval) {
+    if (isRunning) {
+      startTimeRef.current = Date.now() - elapsedTimeSecondsRef.current;
+
       interval = setInterval(() => {
-        setTimeleft(prev => prev - 1);
-      }, 1000);
-    } else if (!isActive && interval) {
-      clearInterval(interval);
+        if (startTimeRef.current !== null) {
+          const elapsedSeconds = Math.floor((Date.now() - startTimeRef.current) / 1000);
+          const newTimeleft = Math.max(currentTotaltimeMinutesRef.current * 60 - elapsedSeconds, 0);
+          setTimeleft(newTimeleft);
+
+          if (newTimeleft === 0) {
+            setIsRunning(false);
+            if (interval) clearInterval(interval);
+          }
+        }
+      }, 100);
+    } else if (!isRunning && startTimeRef.current !== null) {
+      elapsedTimeSecondsRef.current = Date.now() - startTimeRef.current;
     }
 
     return () => {
-      if (interval) {
-        clearInterval(interval);
-      }
+      if (interval) clearInterval(interval);
     };
-  }, [isActive]);
-
-  useEffect(() => {
-    if (timeleft <= 0) {
-      setIsActive(false);
-    }
-  }, [timeleft]);
+  }, [isRunning]);
 
   return (
     <>
@@ -80,11 +89,11 @@ export default function Index() {
 
         <View style={styles.contentContainer}>
           <View style={styles.timerContainer}>
-            <Timer timeleft={timeleft} timeTotal={currentTotaltime.current} onPress={handleTimerClick} />
+            <Timer timeleft={timeleft} timeTotal={currentTotaltimeMinutesRef.current} onPress={handleTimerClick} />
             <TimerText>
               <>
-                {!isActive && timeleft > 0 ? 'Paused' : ''}
-                {!isActive && timeleft === 0 ? 'Restart' : ''}
+                {!isRunning && timeleft > 0 ? 'Pause' : ''}
+                {!isRunning && timeleft === 0 ? 'Restart' : ''}
               </>
             </TimerText>
           </View>

@@ -1,6 +1,6 @@
 import { useSettings } from '@/context/SettingsContext';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Pressable, StyleSheet, View } from 'react-native';
+import { Easing, Pressable, StyleSheet, View } from 'react-native';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import MonospacedText from './ui/MonospacedText';
 
@@ -25,7 +25,17 @@ export default function Timer({ timeleft, timeTotal, onPress }: { timeleft: numb
       <View style={styles.clockSecondaryShadow}>
         <LinearGradient style={styles.clock} colors={['#0E112A', '#2E325A']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 1 }}>
           <View style={styles.clockInnerContainer}>
-            <AnimatedCircularProgress size={248} width={8} tintColor={themeColor} fill={fill} rotation={0} lineCap="round" prefill={100}>
+            <AnimatedCircularProgress
+              size={248}
+              width={8}
+              tintColor={themeColor}
+              fill={fill}
+              rotation={0}
+              lineCap="round"
+              prefill={100}
+              duration={1000}
+              easing={Easing.linear}
+            >
               {() => <MonospacedText>{formatTime(timeleft)}</MonospacedText>}
             </AnimatedCircularProgress>
           </View>
