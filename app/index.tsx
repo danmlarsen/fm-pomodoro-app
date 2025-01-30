@@ -6,7 +6,6 @@ import TimerSelect from '@/components/TimerSelect';
 import { useEffect, useState } from 'react';
 import SettingsModal from '@/components/SettingsModal';
 import React from 'react';
-import { useFonts } from 'expo-font';
 import TimerText from '@/components/TimerText';
 import { useTimer } from '@/hooks/useTimer';
 import useNotifications from '@/hooks/useNotifications';
@@ -40,7 +39,6 @@ export default function Index() {
     setIsRunning(false);
     resetTimer(timers[newTimer]);
   }
-
   return (
     <>
       <SafeAreaView style={styles.appContainer}>
