@@ -1,7 +1,8 @@
-import { SettingsContextProvider } from '@/context/SettingsContext';
+import React from 'react';
 import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
+
+import { SettingsContextProvider } from '@/context/SettingsContext';
 
 export default function RootLayout() {
   return (

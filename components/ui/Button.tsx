@@ -1,6 +1,7 @@
+import { Pressable, StyleSheet, Text } from 'react-native';
+
 import { GlobalStyles } from '@/constants/GlobalStyles';
 import { useSettings } from '@/context/SettingsContext';
-import { Pressable, StyleSheet, Text } from 'react-native';
 
 export default function Button({ children, onPress }: { children: string; onPress: () => void }) {
   const { themeColor, themeFont } = useSettings();
@@ -23,6 +24,5 @@ const styles = StyleSheet.create({
   },
   text: {
     color: '#fff',
-    // fontWeight: 'bold',
   },
 });

@@ -1,6 +1,7 @@
+import { Pressable, StyleSheet, Text } from 'react-native';
+
 import { GlobalStyles } from '@/constants/GlobalStyles';
 import { useSettings } from '@/context/SettingsContext';
-import { Pressable, StyleSheet, Text } from 'react-native';
 
 export function TimerSelectButton({ children, onPress, isSelected }: { children: string; onPress: () => void; isSelected: boolean }) {
   const { themeColor, themeFont } = useSettings();

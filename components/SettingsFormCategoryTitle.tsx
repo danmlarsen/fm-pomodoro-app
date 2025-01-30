@@ -1,6 +1,7 @@
+import { StyleSheet, Text } from 'react-native';
+
 import { GlobalStyles } from '@/constants/GlobalStyles';
 import { useSettings } from '@/context/SettingsContext';
-import { StyleSheet, Text } from 'react-native';
 
 export default function SettingsFormCategoryTitle({ children }: { children: string }) {
   const { themeFont } = useSettings();

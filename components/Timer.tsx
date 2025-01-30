@@ -1,7 +1,8 @@
-import { useSettings } from '@/context/SettingsContext';
-import { LinearGradient } from 'expo-linear-gradient';
 import { Easing, Pressable, StyleSheet, View } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
+
+import { useSettings } from '@/context/SettingsContext';
 import MonospacedText from './ui/MonospacedText';
 
 function formatTime(time: number) {
@@ -11,10 +12,14 @@ function formatTime(time: number) {
   return `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 }
 
+function calculateFillPercent(timeleft: number, timeTotal: number) {
+  return (timeleft / (timeTotal * 60)) * 100;
+}
+
 export default function Timer({ timeleft, timeTotal, onPress }: { timeleft: number; timeTotal: number; onPress: () => void }) {
   const { themeColor } = useSettings();
 
-  const fill = (timeleft / (timeTotal * 60)) * 100;
+  const fill = calculateFillPercent(timeleft, timeTotal);
 
   return (
     <Pressable

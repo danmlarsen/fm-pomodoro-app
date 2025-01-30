@@ -1,8 +1,9 @@
 import { Modal, StyleSheet, Text, View } from 'react-native';
+
+import { GlobalStyles } from '@/constants/GlobalStyles';
+import { useSettings } from '@/context/SettingsContext';
 import SettingsForm from './SettingsForm';
 import IconButton from './ui/IconButton';
-import { useSettings } from '@/context/SettingsContext';
-import { GlobalStyles } from '@/constants/GlobalStyles';
 
 export default function SettingsModal({ isVisible, onClose }: { isVisible: boolean; onClose: () => void }) {
   const { themeFont } = useSettings();

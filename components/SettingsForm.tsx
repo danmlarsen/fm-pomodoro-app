@@ -1,11 +1,11 @@
-import { TSettingsState, useSettings } from '@/context/SettingsContext';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
+
+import { TSettingsState, useSettings } from '@/context/SettingsContext';
 import SettingsFormTimeinput from './SettingsFormInput';
 import SettingsFormFontRadioGroup from './SettingsFormFontRadioGroup';
 import SettingsFormColorRadioGroup from './SettingsFormColorRadioGroup';
 import Button from './ui/Button';
-import React from 'react';
 import SettingsFormCategoryTitle from './SettingsFormCategoryTitle';
 
 export default function SettingsForm({ onSubmit }: { onSubmit: () => void }) {

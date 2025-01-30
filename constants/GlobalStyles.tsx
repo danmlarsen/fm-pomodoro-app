@@ -1,5 +1,3 @@
-import { StyleSheet } from 'react-native';
-
 export const GlobalStyles = {
   themeColor1: '#F87070',
   themeColor2: '#70F3F8',

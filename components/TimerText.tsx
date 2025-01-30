@@ -1,6 +1,6 @@
+import { StyleSheet, Text, View } from 'react-native';
 import { GlobalStyles } from '@/constants/GlobalStyles';
 import { useSettings } from '@/context/SettingsContext';
-import { StyleSheet, Text, View } from 'react-native';
 
 export default function TimerText({ children }: { children: React.ReactNode }) {
   const { themeFont } = useSettings();

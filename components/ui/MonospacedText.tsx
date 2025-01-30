@@ -1,6 +1,7 @@
+import { Platform, StyleSheet, Text, View } from 'react-native';
+
 import { GlobalStyles } from '@/constants/GlobalStyles';
 import { useSettings } from '@/context/SettingsContext';
-import { Platform, StyleSheet, Text, View } from 'react-native';
 
 export default function MonospacedText({ children }: { children: string }) {
   const { themeFont } = useSettings();

@@ -1,8 +1,9 @@
+import { Ionicons } from '@expo/vector-icons';
+
 import RadioItem from './ui/RadioItem';
 import RadioGroup from './ui/RadioGroup';
 import { GlobalStyles } from '@/constants/GlobalStyles';
 import { TColors } from '@/context/SettingsContext';
-import { Ionicons } from '@expo/vector-icons';
 
 export default function SettingsFormColorRadioGroup({
   selectedThemeColor,

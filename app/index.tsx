@@ -1,15 +1,15 @@
+import React, { useEffect, useState } from 'react';
 import { Pressable, SafeAreaView, StyleSheet, View } from 'react-native';
 import { Image } from 'expo-image';
-import Timer from '@/components/Timer';
-import { type TTimer, useSettings } from '@/context/SettingsContext';
-import TimerSelect from '@/components/TimerSelect';
-import { useEffect, useState } from 'react';
-import SettingsModal from '@/components/SettingsModal';
-import React from 'react';
-import TimerText from '@/components/TimerText';
+import * as Haptics from 'expo-haptics';
+
 import { useTimer } from '@/hooks/useTimer';
 import useNotifications from '@/hooks/useNotifications';
-import * as Haptics from 'expo-haptics';
+import { type TTimer, useSettings } from '@/context/SettingsContext';
+import SettingsModal from '@/components/SettingsModal';
+import Timer from '@/components/Timer';
+import TimerSelect from '@/components/TimerSelect';
+import TimerText from '@/components/TimerText';
 
 export default function Index() {
   const { timers } = useSettings();
