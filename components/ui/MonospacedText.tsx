@@ -6,26 +6,23 @@ import { useSettings } from '@/context/SettingsContext';
 export default function MonospacedText({ children }: { children: string }) {
   const { themeFont } = useSettings();
 
-  return (
-    <View style={styles.container}>
-      {Platform.OS === 'ios' && themeFont === 'mono' && (
-        <Text style={[styles.text, { fontFamily: GlobalStyles.fonts[themeFont], letterSpacing: -4, fontSize: 72 }]}>{children}</Text>
-      )}
-      {(Platform.OS === 'ios' && themeFont !== 'mono') ||
-        (Platform.OS !== 'ios' &&
-          children.split('').map((char, index) =>
-            char !== ':' ? (
-              <Text key={index} style={[styles.text, styles.monoText, { fontFamily: GlobalStyles.fonts[themeFont] }]}>
-                {char}
-              </Text>
-            ) : (
-              <Text key={index} style={[styles.text, styles.monoText, { fontFamily: GlobalStyles.fonts[themeFont], width: 20 }]}>
-                {char}
-              </Text>
-            )
-          ))}
-    </View>
+  let output: React.ReactNode = children.split('').map((char, index) =>
+    char !== ':' ? (
+      <Text key={index} style={[styles.text, styles.monoText, { fontFamily: GlobalStyles.fonts[themeFont] }]}>
+        {char}
+      </Text>
+    ) : (
+      <Text key={index} style={[styles.text, styles.monoText, { fontFamily: GlobalStyles.fonts[themeFont], width: 20 }]}>
+        {char}
+      </Text>
+    )
   );
+
+  if (Platform.OS === 'ios' && themeFont === 'mono') {
+    output = <Text style={[styles.text, { fontFamily: GlobalStyles.fonts[themeFont], letterSpacing: -4, fontSize: 72 }]}>{children}</Text>;
+  }
+
+  return <View style={styles.container}>{output}</View>;
 }
 
 const styles = StyleSheet.create({
