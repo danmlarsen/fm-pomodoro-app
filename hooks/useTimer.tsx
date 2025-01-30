@@ -42,5 +42,5 @@ export function useTimer(totalTime: number) {
     };
   }, [isRunning]);
 
-  return { timeleft, isRunning, setIsRunning, resetTimer };
+  return { timeleft, isRunning, setIsRunning, resetTimer, startTime: startTimeRef.current, totalTime: currentTotaltimeMinutesRef.current };
 }

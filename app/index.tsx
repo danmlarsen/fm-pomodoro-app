@@ -17,15 +17,23 @@ export default function Index() {
   const [selectedTimer, setSelectedTimer] = useState<TTimer>('pomodoro');
   const [showSettings, setShowSettings] = useState(false);
 
-  const { timeleft, isRunning, setIsRunning, resetTimer } = useTimer(timers[selectedTimer]);
+  const { timeleft, isRunning, setIsRunning, resetTimer, startTime, totalTime } = useTimer(timers[selectedTimer]);
   const { playNotificationSound } = useNotifications();
 
+  // Notify the user with sound & haptics when timer has run out
   useEffect(() => {
     if (!isRunning && timeleft === 0) {
       Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
       playNotificationSound();
     }
   }, [timeleft, isRunning]);
+
+  // Change total duration of timer if timer has not been started yet and total duration is changed
+  useEffect(() => {
+    if (!isRunning && !startTime) {
+      resetTimer(timers[selectedTimer]);
+    }
+  }, [timers, startTime, isRunning]);
 
   function handleTimerClick() {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
@@ -55,7 +63,7 @@ export default function Index() {
 
         <View style={styles.contentContainer}>
           <View style={styles.timerContainer}>
-            <Timer timeleft={timeleft} timeTotal={timers[selectedTimer]} onPress={handleTimerClick} />
+            <Timer timeleft={timeleft} timeTotal={totalTime} onPress={handleTimerClick} />
             <TimerText>
               <>
                 {!isRunning && timeleft > 0 ? 'Pause' : ''}
