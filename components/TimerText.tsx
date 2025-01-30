@@ -3,7 +3,7 @@ import { useSettings } from '@/context/SettingsContext';
 import { StyleSheet, Text, View } from 'react-native';
 
 export default function TimerText({ children }: { children: React.ReactNode }) {
-  const { themeFont } = useSettings()!;
+  const { themeFont } = useSettings();
 
   return (
     <View style={styles.timerTextContainer} pointerEvents="none">

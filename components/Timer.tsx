@@ -12,7 +12,7 @@ function formatTime(time: number) {
 }
 
 export default function Timer({ timeleft, timeTotal, onPress }: { timeleft: number; timeTotal: number; onPress: () => void }) {
-  const { themeColor } = useSettings()!;
+  const { themeColor } = useSettings();
 
   const fill = (timeleft / (timeTotal * 60)) * 100;
 

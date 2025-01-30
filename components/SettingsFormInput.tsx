@@ -3,7 +3,7 @@ import { useSettings } from '@/context/SettingsContext';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 
 export default function SettingsFormTimeinput({ label, value, onChange }: { label: string; value: string; onChange: (text: string) => void }) {
-  const { themeFont } = useSettings()!;
+  const { themeFont } = useSettings();
 
   return (
     <View style={styles.container}>

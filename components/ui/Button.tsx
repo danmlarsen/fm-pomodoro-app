@@ -3,7 +3,7 @@ import { useSettings } from '@/context/SettingsContext';
 import { Pressable, StyleSheet, Text } from 'react-native';
 
 export default function Button({ children, onPress }: { children: string; onPress: () => void }) {
-  const { themeColor, themeFont } = useSettings()!;
+  const { themeColor, themeFont } = useSettings();
 
   return (
     <Pressable style={[styles.button, { backgroundColor: themeColor }]} onPress={onPress}>

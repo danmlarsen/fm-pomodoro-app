@@ -3,7 +3,7 @@ import { useSettings } from '@/context/SettingsContext';
 import { StyleSheet, Text } from 'react-native';
 
 export default function SettingsFormCategoryTitle({ children }: { children: string }) {
-  const { themeFont } = useSettings()!;
+  const { themeFont } = useSettings();
 
   return <Text style={[styles.titleText, { fontFamily: GlobalStyles.fonts[themeFont] }]}>{children}</Text>;
 }

@@ -11,7 +11,7 @@ import TimerText from '@/components/TimerText';
 import { useTimer } from '@/hooks/useTimer';
 
 export default function Index() {
-  const { timers } = useSettings()!;
+  const { timers } = useSettings();
 
   const [selectedTimer, setSelectedTimer] = useState<TTimer>('pomodoro');
   const [showSettings, setShowSettings] = useState(false);

@@ -35,7 +35,7 @@ const SettingsContext = createContext<TSettingsContext | null>(null);
 
 export function useSettings() {
   const context = useContext(SettingsContext);
-  if (context === undefined) throw new Error('Settings context is not defined.');
+  if (context === null) throw new Error('Settings context is not defined.');
   return context;
 }
 

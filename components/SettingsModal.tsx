@@ -5,7 +5,7 @@ import { useSettings } from '@/context/SettingsContext';
 import { GlobalStyles } from '@/constants/GlobalStyles';
 
 export default function SettingsModal({ isVisible, onClose }: { isVisible: boolean; onClose: () => void }) {
-  const { themeFont } = useSettings()!;
+  const { themeFont } = useSettings();
 
   return (
     <Modal animationType="slide" transparent={true} visible={isVisible}>

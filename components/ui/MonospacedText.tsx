@@ -3,7 +3,7 @@ import { useSettings } from '@/context/SettingsContext';
 import { StyleSheet, Text, View } from 'react-native';
 
 export default function MonospacedText({ children }: { children: string }) {
-  const { themeFont } = useSettings()!;
+  const { themeFont } = useSettings();
 
   return (
     <View style={styles.container}>

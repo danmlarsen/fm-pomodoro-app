@@ -9,7 +9,7 @@ import React from 'react';
 import SettingsFormCategoryTitle from './SettingsFormCategoryTitle';
 
 export default function SettingsForm({ onSubmit }: { onSubmit: () => void }) {
-  const { timers, themeFont, themeColor, setSettingsState } = useSettings()!;
+  const { timers, themeFont, themeColor, setSettingsState } = useSettings();
 
   const [pomodoro, setPomodoro] = useState(timers.pomodoro.toString());
   const [shortBreak, setShortBreak] = useState(timers.shortBreak.toString());
