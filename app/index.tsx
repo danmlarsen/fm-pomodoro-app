@@ -3,12 +3,13 @@ import { Image } from 'expo-image';
 import Timer from '@/components/Timer';
 import { type TTimer, useSettings } from '@/context/SettingsContext';
 import TimerSelect from '@/components/TimerSelect';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import SettingsModal from '@/components/SettingsModal';
 import React from 'react';
 import { useFonts } from 'expo-font';
 import TimerText from '@/components/TimerText';
 import { useTimer } from '@/hooks/useTimer';
+import useNotifications from '@/hooks/useNotifications';
 
 export default function Index() {
   const { timers } = useSettings();
@@ -17,6 +18,13 @@ export default function Index() {
   const [showSettings, setShowSettings] = useState(false);
 
   const { timeleft, isRunning, setIsRunning, resetTimer } = useTimer(timers[selectedTimer]);
+  const { playNotificationSound } = useNotifications();
+
+  useEffect(() => {
+    if (!isRunning && timeleft === 0) {
+      playNotificationSound();
+    }
+  }, [timeleft, isRunning]);
 
   const [loaded, error] = useFonts({
     KumbhSans: require('@/assets/fonts/Kumbh_Sans/static/KumbhSans-Bold.ttf'),
@@ -38,6 +46,8 @@ export default function Index() {
     setIsRunning(false);
     resetTimer(timers[newTimer]);
   }
+
+  if (!loaded) return null;
 
   return (
     <>

@@ -25,7 +25,7 @@ const initialState: TSettingsState = {
 };
 
 type TSettingsContext = TSettingsState & {
-  setSettingsState(prev: TSettingsState): void;
+  setSettings(prev: TSettingsState): void;
   setThemeColor(color: TColors): void;
   setThemeFont(fontName: TFonts): void;
   setTimerDuration(timer: TTimer, duration: number): void;
@@ -54,11 +54,15 @@ export function SettingsContextProvider({ children }: { children: React.ReactNod
     setSettingsState(prev => ({ ...prev, timers: { ...prev.timers, [timer]: duration } }));
   }
 
+  function setSettings(newSettings: TSettingsState) {
+    setSettingsState(newSettings);
+  }
+
   return (
     <SettingsContext.Provider
       value={{
         ...settingsState,
-        setSettingsState,
+        setSettings,
         setThemeColor,
         setThemeFont,
         setTimerDuration,
