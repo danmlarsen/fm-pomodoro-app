@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 
 import { TSettingsState, useSettings } from '@/context/SettingsContext';
 import SettingsFormTimeinput from './SettingsFormInput';
