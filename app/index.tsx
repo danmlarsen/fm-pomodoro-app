@@ -9,6 +9,7 @@ import React from 'react';
 import TimerText from '@/components/TimerText';
 import { useTimer } from '@/hooks/useTimer';
 import useNotifications from '@/hooks/useNotifications';
+import * as Haptics from 'expo-haptics';
 
 export default function Index() {
   const { timers } = useSettings();
@@ -21,11 +22,14 @@ export default function Index() {
 
   useEffect(() => {
     if (!isRunning && timeleft === 0) {
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
       playNotificationSound();
     }
   }, [timeleft, isRunning]);
 
   function handleTimerClick() {
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+
     if (!isRunning && timeleft === 0) {
       resetTimer(timers[selectedTimer]);
     } else if (timeleft > 0) {
