@@ -26,12 +26,6 @@ export default function Index() {
     }
   }, [timeleft, isRunning]);
 
-  const [loaded, error] = useFonts({
-    KumbhSans: require('@/assets/fonts/Kumbh_Sans/static/KumbhSans-Bold.ttf'),
-    RobotoSlab: require('@/assets/fonts/Roboto_Slab/static/RobotoSlab-Bold.ttf'),
-    SpaceMono: require('@/assets/fonts/Space_Mono/SpaceMono-Regular.ttf'),
-  });
-
   function handleTimerClick() {
     if (!isRunning && timeleft === 0) {
       resetTimer(timers[selectedTimer]);
@@ -46,8 +40,6 @@ export default function Index() {
     setIsRunning(false);
     resetTimer(timers[newTimer]);
   }
-
-  if (!loaded) return null;
 
   return (
     <>
