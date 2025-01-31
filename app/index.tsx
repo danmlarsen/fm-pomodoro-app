@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Pressable, SafeAreaView, StyleSheet, View } from 'react-native';
+import { Platform, Pressable, SafeAreaView, StyleSheet, View } from 'react-native';
 import { Image } from 'expo-image';
 import * as Haptics from 'expo-haptics';
 
@@ -23,7 +23,10 @@ export default function Index() {
   // Notify the user with sound & haptics when timer has run out
   useEffect(() => {
     if (!isRunning && timeleft === 0) {
-      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+      if (Platform.OS !== 'web') {
+        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+      }
+
       playNotificationSound();
     }
   }, [timeleft, isRunning]);
@@ -36,7 +39,9 @@ export default function Index() {
   }, [timers, startTime, isRunning]);
 
   function handleTimerClick() {
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    if (Platform.OS !== 'web') {
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    }
 
     if (!isRunning && timeleft === 0) {
       resetTimer(timers[selectedTimer]);

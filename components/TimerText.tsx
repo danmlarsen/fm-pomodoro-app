@@ -6,7 +6,7 @@ export default function TimerText({ children }: { children: React.ReactNode }) {
   const { themeFont } = useSettings();
 
   return (
-    <View style={styles.timerTextContainer} pointerEvents="none">
+    <View style={styles.timerTextContainer}>
       <Text style={[styles.timerText, { fontFamily: GlobalStyles.fonts[themeFont] }]}>{children}</Text>
     </View>
   );
@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
     transform: [{ translateY: '50%' }],
     justifyContent: 'center',
     alignItems: 'center',
+    pointerEvents: 'none',
   },
   timerText: {
     color: '#D7E0FF',
