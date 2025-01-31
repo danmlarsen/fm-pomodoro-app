@@ -9,13 +9,15 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.larsendanmarius.pomodoro"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/icon.png",
         "backgroundColor": "#1E213F"
-      }
+      },
+      "package": "com.larsendanmarius.pomodoro"
     },
     "web": {
       "bundler": "metro",
@@ -36,12 +38,25 @@
       [
         "expo-font",
         {
-          "fonts": ["./assets/fonts/KumbhSans-Bold.ttf", "./assets/fonts/RobotoSlab-Bold.ttf", "./assets/fonts/SpaceMono-Bold.ttf"]
+          "fonts": [
+            "./assets/fonts/KumbhSans-Bold.ttf",
+            "./assets/fonts/RobotoSlab-Bold.ttf",
+            "./assets/fonts/SpaceMono-Regular.ttf"
+          ]
         }
       ]
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "d1f6b75d-552c-4351-a955-2bc23a2bc2d8"
+      }
+    },
+    "owner": "larsendanmarius"
   }
 }

@@ -54,3 +54,6 @@ app-example
 .DS_Store
 .prettierignore
 starter-code/
+
+android/
+ios/

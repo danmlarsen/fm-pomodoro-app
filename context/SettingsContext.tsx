@@ -1,4 +1,5 @@
 import { createContext, useContext, useState } from 'react';
+import { MMKV } from 'react-native-mmkv';
 
 export type TColors = string;
 export type TFonts = 'sans' | 'serif' | 'mono';
@@ -13,6 +14,8 @@ export type TSettingsState = {
   themeFont: TFonts;
   themeColor: TColors;
 };
+
+const storage = new MMKV();
 
 const initialState: TSettingsState = {
   timers: {
@@ -40,7 +43,13 @@ export function useSettings() {
 }
 
 export function SettingsContextProvider({ children }: { children: React.ReactNode }) {
-  const [settingsState, setSettingsState] = useState<TSettingsState>(initialState);
+  let storedState: TSettingsState | undefined;
+  if (storage.contains('settings')) {
+    const settingsJson = storage.getString('settings')!;
+    storedState = JSON.parse(settingsJson);
+  }
+
+  const [settingsState, setSettingsState] = useState<TSettingsState>(storedState ? storedState : initialState);
 
   function setThemeColor(color: TColors) {
     setSettingsState(prev => ({ ...prev, selectedColor: color }));
@@ -56,6 +65,7 @@ export function SettingsContextProvider({ children }: { children: React.ReactNod
 
   function setSettings(newSettings: TSettingsState) {
     setSettingsState(newSettings);
+    storage.set('settings', JSON.stringify(newSettings));
   }
 
   return (

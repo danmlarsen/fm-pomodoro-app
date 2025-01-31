@@ -3,8 +3,8 @@ export const GlobalStyles = {
   themeColor2: '#70F3F8',
   themeColor3: '#D881F8',
   fonts: {
-    sans: 'KumbhSans',
-    serif: 'RobotoSlab',
-    mono: 'SpaceMono',
+    sans: 'KumbhSans-Bold',
+    serif: 'RobotoSlab-Bold',
+    mono: 'SpaceMono-Regular',
   },
 };
