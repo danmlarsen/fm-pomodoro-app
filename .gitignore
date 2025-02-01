@@ -58,3 +58,5 @@ starter-code/
 android/
 ios/
 misc/
+# Local Netlify folder
+.netlify

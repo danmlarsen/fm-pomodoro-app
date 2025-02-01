@@ -21,7 +21,7 @@
     },
     "web": {
       "bundler": "metro",
-      "output": "static",
+      "output": "single",
       "favicon": "./assets/images/favicon.png"
     },
     "plugins": [
@@ -38,11 +38,7 @@
       [
         "expo-font",
         {
-          "fonts": [
-            "./assets/fonts/KumbhSans-Bold.ttf",
-            "./assets/fonts/RobotoSlab-Bold.ttf",
-            "./assets/fonts/SpaceMono-Regular.ttf"
-          ]
+          "fonts": ["./assets/fonts/KumbhSans-Bold.ttf", "./assets/fonts/RobotoSlab-Bold.ttf", "./assets/fonts/SpaceMono-Regular.ttf"]
         }
       ]
     ],

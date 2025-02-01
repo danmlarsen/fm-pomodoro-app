@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Platform, Pressable, SafeAreaView, StyleSheet, View } from 'react-native';
+import { Linking, Platform, Pressable, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { Image } from 'expo-image';
 import * as Haptics from 'expo-haptics';
 
@@ -10,6 +10,7 @@ import SettingsModal from '@/components/SettingsModal';
 import Timer from '@/components/Timer';
 import TimerSelect from '@/components/TimerSelect';
 import TimerText from '@/components/TimerText';
+import Button from '@/components/ui/Button';
 
 export default function Index() {
   const { timers } = useSettings();
@@ -65,6 +66,20 @@ export default function Index() {
           </View>
           <TimerSelect selectedTimer={selectedTimer} setSelectedTimer={handleChangeTimer} />
         </View>
+
+        {Platform.OS === 'web' && (
+          <View style={{ marginTop: 32, alignItems: 'center' }}>
+            <Text style={{ color: '#D7E0FF', fontSize: 32, textAlign: 'center', fontWeight: 'bold', marginBottom: 16 }}>This app is intended for mobile</Text>
+            <Button
+              onPress={async () => {
+                const githubUrl = 'https://github.com/danmlarsen/fm-pomodoro-app/releases';
+                await Linking.openURL(githubUrl);
+              }}
+            >
+              Download .apk
+            </Button>
+          </View>
+        )}
 
         <View style={styles.contentContainer}>
           <View style={styles.timerContainer}>
