@@ -14,7 +14,7 @@ export default function useNotifications() {
   }, []);
 
   async function playNotificationSound() {
-    const { sound } = await Audio.Sound.createAsync(require('@/assets/sounds/notification.mp3'));
+    const { sound } = await Audio.Sound.createAsync(require('@/assets/sounds/notification.mp3'), { shouldPlay: true });
     setNotificationSound(sound);
     await sound.playAsync();
   }
