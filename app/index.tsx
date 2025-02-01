@@ -68,7 +68,7 @@ export default function Index() {
         </View>
 
         {Platform.OS === 'web' && (
-          <View style={{ marginTop: 32, alignItems: 'center' }}>
+          <View style={{ marginTop: 32, alignItems: 'center', zIndex: 100, backgroundColor: '#161932', padding: 32, borderRadius: 16 }}>
             <Text style={{ color: '#D7E0FF', fontSize: 32, textAlign: 'center', fontWeight: 'bold', marginBottom: 16 }}>This app is intended for mobile</Text>
             <Button
               onPress={async () => {
